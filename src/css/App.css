@@ -1,0 +1,21 @@
+.selectedItem {
+    background-color: #e0e0e0; /* A light gray background for highlighting */
+    font-weight: bold;
+}
+
+.detailsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.detailsTable th, .detailsTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.detailsTable th {
+    background-color: #f7f7f7; /* A subtle background for table headers */
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
