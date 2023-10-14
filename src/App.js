@@ -55,6 +55,7 @@ function App() {
 		const [data, err] = await apiCall(`${expressServerRootUri}/api/getItemFulfillmentRecord?id=${id}`);
 		if (data) {
 			setSelectedItemDetails(data);
+			setSelectedItemId(data.id)
 		} else {
 			setError(err);
 		}
@@ -87,14 +88,10 @@ function App() {
 			<main>
 				{error ? <div>Error occurred: {error.message}</div> :
 					tokenData ? (
-
 						<div>
-							<div>TOKEN: {JSON.stringify(tokenData)}</div>
-							<div>
-								<ItemFulfillmentTable items={displayedItems} onItemSelect={fetchItemDetails} selectedItem={selectedItemId} />
-								<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} maxPages={maxPages} />
-								{selectedItemDetails && <ItemFulfillment details={selectedItemDetails} />}
-							</div>
+							<ItemFulfillmentTable items={displayedItems} onItemSelect={fetchItemDetails} selectedItem={selectedItemId} />
+							<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} maxPages={maxPages} />
+							{selectedItemDetails && <ItemFulfillment key={selectedItemId} details={selectedItemDetails} />}
 						</div>
 					) : <button onClick={handleLogin}>Login with NETSUITE - COMPETITIVE CHOICE</button>
 				}
