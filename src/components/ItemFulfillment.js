@@ -15,7 +15,7 @@ const ItemFulfillment = ({ details }) => {
       <table className="detailsTable">
         <tbody>
           {Object.entries(details).map(([key, value]) => (
-            <tr key={key}>
+            <tr key={key} className="item-fulfillment-row">
               <td>{key}</td>
               <td>
                 {typeof value === 'object' && value !== null

@@ -2,14 +2,15 @@
 import React from 'react';
 import '../css/Header.css';
 
-const Header = () => (
-  <header>
-    <h1>CCI Fulfillment</h1>
-    <nav>
-      <a href="/logout">LOGOUT</a>
-    </nav>
-    <div>Workspace</div>
-  </header>
-);
+const Header = ({ isLoggedIn }) => {
+    return (
+        <header>
+            <h1>CCI Fulfillment</h1>
+            <nav>
+                { isLoggedIn ? <a href="/logout">Logout</a> : null }
+            </nav>
+        </header>
+    );
+};
 
 export default Header;
