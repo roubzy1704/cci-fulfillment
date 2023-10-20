@@ -18,8 +18,8 @@ video {
 }
 
 .captured-image {
-	max-width: 640px;
-	max-height: 480px;
+	max-width: 480px;
+	max-height: 360px;
 }
 
 .button-container {

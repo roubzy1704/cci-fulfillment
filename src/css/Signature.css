@@ -1,0 +1,44 @@
+.signature-container {
+    border: 2px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    max-width: 800px;  /* This sets a maximum width, but allows it to shrink on smaller screens */
+    margin: 20px auto;
+    position: relative;
+}
+
+.signature-canvas {
+    display: block;
+    width: 100%;
+    min-height: 200px;  /* Reduced min-height to make it responsive */
+    max-height: 400px;  /* Max height to avoid getting too large on desktop screens */
+    border: 1px solid #ddd;
+    background-color: #f7f7f7;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.signature-image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.signature-image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Adjusting styles for screens less than or equal to 600px width */
+@media (max-width: 600px) {
+    .signature-canvas {
+        min-height: 150px;  /* Adjust height further for smaller screens */
+    }
+}

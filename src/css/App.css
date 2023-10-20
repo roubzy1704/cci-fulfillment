@@ -6,7 +6,7 @@
 
 .main-content {
     max-width: 1200px; 
-    width: 100%; 
+    width: auto; 
     margin: 0 auto; 
     padding: 15px; 
 }
@@ -43,6 +43,11 @@
     .login-button {
         font-size: 14px;
     }
+    
+    .detailsTable th, .detailsTable td {
+        padding: 5px;  /* Decrease padding on mobile devices */
+        font-size: 12px;  /* Adjust font size for smaller screens */
+    }
 }
 
 .item-fulfillment-table {
@@ -54,9 +59,15 @@
 .item-fulfillment-row:hover {
     background-color:lightyellow;
 }
+
 .selectedItem {
     background-color: lightyellow;
     font-weight: bold;
+}
+
+.responsive-table-container {
+    overflow-x: auto; /* Adds horizontal scrolling */
+    max-width: 100%; /* Ensures the table container doesn't extend past the screen */
 }
 
 .detailsTable {
@@ -74,4 +85,28 @@
     background-color: #f7f7f7; /* A subtle background for table headers */
     text-transform: uppercase;
     font-size: 0.9em;
+}
+
+.refresh-button {
+    display: block; 
+    margin: 20px auto 10px; /* Space above the button and a little below */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none; /* Remove any default borders */
+    background-color: #007BFF; /* A pleasant blue */
+    color: white; /* White text */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.refresh-button:hover {
+    background-color: #0056b3; /* A slightly darker blue for hover */
+}
+
+@media (max-width: 768px) {
+    .refresh-button {
+        font-size: 14px;
+        padding: 8px 16px; /* Slightly smaller padding for smaller screens */
+    }
 }

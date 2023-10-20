@@ -39,12 +39,16 @@ function App() {
 		window.location.href = `${expressServerRootUri}/auth`;
 	};
 
+	const handleRefreshItems = () => {
+		fetchItemFulfillmentData(tokenData);
+	};
+
 	const fetchItemFulfillmentData = async (token) => {
 		const [data, err] = await apiCall(`${expressServerRootUri}/api/getItemFulfillmentDataSuiteQL`, {
 			data: token
 		});
 		if (data) {
-			setItemFulfillmentData(data.items.map(item => item.id));
+			setItemFulfillmentData(data.items.map(item => ({ id: item.id, tranid: item.tranid, description: item.trandisplayname })));
 		} else {
 			setError(err);
 		}
@@ -91,6 +95,7 @@ function App() {
 								items={displayedItems}
 								onItemSelect={(itemId) => fetchItemDetails(itemId, tokenData)}
 								selectedItem={selectedItemId}
+								onRefresh={handleRefreshItems}
 							/>
 							<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} maxPages={maxPages} />
 							{selectedItemDetails && <ItemFulfillment key={selectedItemId} details={selectedItemDetails} />}
