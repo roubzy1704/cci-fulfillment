@@ -62,7 +62,7 @@ const CameraCapture = ({ onCapture }) => {
 		<div className="camera-container">
 			{error && <p className="error-message">{error}</p>}
 			<div className="video-and-capture">
-				<video ref={videoRef} autoPlay width="640" height="480"></video>
+				<video ref={videoRef} autoPlay></video>
 				{imageSrc && <img src={imageSrc} alt="Captured content" className="captured-image" />}
 			</div>
 			<div className="button-container">

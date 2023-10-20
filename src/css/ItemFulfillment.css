@@ -12,19 +12,20 @@
     max-width: 100%; /* Ensure max-width is 100% */
     border-collapse: collapse;
     margin-top: 20px;
-    table-layout: auto;  /* This can help with consistent column widths */
+    table-layout: fixed;  /* Setting to fixed to enforce column widths */
 }
 
 .detailsTable th, .detailsTable td {
     border: 1px solid #ccc;
     padding: 4px 8px;
-    word-wrap: break-word;  /* Ensure content wraps */
     overflow-wrap: break-word;  /* Break long words as needed */
+    word-break: break-all;      /* This will ensure wrapping even if there are no spaces */
+    word-wrap: break-word;      /* Older browsers support */
 }
 
 .detailsTable th:nth-child(2),
 .detailsTable td:nth-child(2) {
-    width: 100%;  /* Make the second column take up the remaining space */
+    width: 70%;  /* Make the second column take up the remaining space */
 }
 
 .detailsTable th {
@@ -35,19 +36,38 @@
 
 /* Mobile devices */
 @media (max-width: 768px) {
-    .detailsTable, .detailsTable tbody, .detailsTable th, .detailsTable td, .detailsTable tr {
-        display: block;
-        width: 100%;
-    }
-
-    .detailsTable thead {
-        display: none;  /* Hide headers */
+    .detailsTable {
+        table-layout: auto;  /* Switch to auto for mobile views */
     }
 
     .detailsTable td, .detailsTable th {
+        overflow-x: auto;  /* Allow for scrolling within cells if content overflows */
+        display: table-cell; /* Maintain cell behavior */
         border: none;
         border-bottom: 1px solid #ccc;
         margin-bottom: 0.625rem;
+        padding: 2px 4px; /* Decrease padding for smaller screens */
+        font-size: 0.8em; /* Decrease font-size for smaller screens */
+    }
+
+    /* Set a specific width for the first column (fields) */
+    .detailsTable td:first-child {
+        width: auto;  /* Use auto for natural content width */
+        max-width: 30%;  /* Limit to 30% at most to give more space to the values column */
+    }
+
+    /* Let the second column (values) take the rest of the space */
+    .detailsTable td:nth-child(2) {
+        width: 70%;
+    }
+
+    .detailsTable th {
+        display: none;  /* Hide headers */
+    }
+
+    .detailsTable tr {
+        display: table-row; /* Maintain row behavior */
+        width: 100%;
     }
 }
 
@@ -57,4 +77,3 @@
     align-items: center;
     margin-top: 20px; /* Add some top margin for spacing */
 }
-

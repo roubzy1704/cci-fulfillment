@@ -4,6 +4,8 @@
 	align-items: center;
 	justify-content: center;
 	gap: 10px;
+	width: 100%; /* Take the full width of the container */
+	box-sizing: border-box; /* Border-box makes sure padding and border are part of the width */
 }
 
 .video-and-capture {
@@ -11,21 +13,27 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100%; /* Full width */
+	max-width: 640px; /* Cap the width */
 }
 
 video {
+	width: 100%; /* Full width */
+	height: auto; /* Maintain the aspect ratio */
 	align-self: center;
 }
 
 .captured-image {
-	max-width: 480px;
-	max-height: 360px;
+	width: 100%; /* Full width */
+	max-height: 360px; /* You can adjust this based on your needs */
 }
 
 .button-container {
 	margin-top: 10px;
 	display: flex;
+	flex-wrap: wrap; /* Allow the buttons to wrap to the next line on smaller screens */
 	gap: 10px;
+	justify-content: center; /* Center the buttons */
 }
 
 .error-message,
@@ -34,4 +42,5 @@ video {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	font-style: italic;
+	text-align: center; /* Center the error and instruction messages */
 }
