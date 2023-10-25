@@ -77,3 +77,11 @@
     align-items: center;
     margin-top: 20px; /* Add some top margin for spacing */
 }
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
