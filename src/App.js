@@ -24,8 +24,6 @@ function App() {
 	const [error, setError] = useState(null);
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = process.env.REACT_APP_PAGINATION_ITEMS_LIMIT_PER_PAGE;
-	const [menuItems] = useState([{ id: '1', label: 'Option 1' }]);
-	const [activeItem, setActiveItem] = useState(menuItems[0]);
 	const expressServerRootUri = process.env.REACT_APP_EXPRESS_SERVER_ROOT_URI;
 
 	const maxPages = Math.ceil((itemFulfillmentData?.length || 0) / itemsPerPage);
@@ -78,10 +76,6 @@ function App() {
 			}
 		}
 	}, []);
-
-	const handleItemSelect = (item) => {
-		setActiveItem(item);
-	};
 
 	return (
 		<div className="app-container">
