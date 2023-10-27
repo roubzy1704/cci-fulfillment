@@ -2,11 +2,25 @@ import React, { useRef, useState, forwardRef, useImperativeHandle, useEffect } f
 import SignatureCanvas from 'react-signature-canvas';
 import '../css/Signature.css';
 
+/**
+ * Signature Component
+ * 
+ * This component provides a canvas for users to sign. It allows clearing the signature and 
+ * accepting it, sending the accepted signature to the parent component.
+ * 
+ * @param {Object} props - The component's props.
+ * @param {Function} props.onAccept - Callback function that receives the accepted signature as a data URL.
+ * @param {Object} ref - The forwarded ref to expose certain methods to the parent.
+ */
 const Signature = forwardRef((props, ref) => {
-	const sigCanvas = useRef({});
-	const [isSigned, setIsSigned] = useState(false);
-	const [acceptedSignature, setAcceptedSignature] = useState(null);
+	const sigCanvas = useRef({});                             // Reference to the signature canvas
+	const [isSigned, setIsSigned] = useState(false);          // State to track if the canvas has a signature
+	const [acceptedSignature, setAcceptedSignature] = useState(null); // State to hold the accepted signature data URL
 
+	/**
+	 * Sets the canvas dimensions based on the parent's width, considering padding and borders.
+	 * Adjusts height depending on the screen width.
+	 */
 	const setCanvasDimensions = () => {
 		if (sigCanvas.current) {
 			const canvas = sigCanvas.current.getCanvas();
@@ -20,7 +34,7 @@ const Signature = forwardRef((props, ref) => {
 			// Set width considering padding and border
 			canvas.width = elementWidth;
 
-			// Determine height
+			// Determine height based on screen width
 			if (window.innerWidth <= 600) {
 				canvas.height = 150;
 			} else {
@@ -29,6 +43,9 @@ const Signature = forwardRef((props, ref) => {
 		}
 	};
 
+	/**
+	 * Effect hook to initialize the canvas dimensions and attach an event listener for window resizing.
+	 */
 	useEffect(() => {
 		setCanvasDimensions();
 		window.addEventListener('resize', setCanvasDimensions);
@@ -37,6 +54,9 @@ const Signature = forwardRef((props, ref) => {
 		}
 	}, []);
 
+	/**
+	 * Expose the clear and accept methods to the parent component via the forwarded ref.
+	 */
 	useImperativeHandle(ref, () => ({
 		clear: () => {
 			sigCanvas.current.clear();

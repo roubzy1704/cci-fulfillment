@@ -1,9 +1,18 @@
 import React from 'react';
 
+/**
+ * A functional React component that renders a table displaying item fulfillments.
+ * 
+ * @param {Object[]} items - An array of item fulfillment data.
+ * @param {Function} onItemSelect - A callback function that is invoked when an item row is clicked to view its details.
+ * @param {string|null} selectedItem - The currently selected item's ID. Used for styling purposes to highlight the selected row.
+ * @param {Function} onRefresh - A callback function that is invoked to refresh the list of items.
+ * 
+ * @returns {JSX.Element} A table of item fulfillments or a message if no items are available.
+ */
 const ItemFulfillmentTable = ({ items, onItemSelect, selectedItem, onRefresh }) => {
-	// If items are not available, return null (i.e., don't render anything)
+    // If items are not available, return a message indicating no available items.
 	if (!items || items.length === 0) return <p><strong>No Item fulfillments available. Please contact an Administrator.</strong></p>;
-
 
 	return (
 		<div>

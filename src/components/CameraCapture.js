@@ -1,17 +1,28 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import '../css/CameraCapture.css';
 
+/**
+ * CameraCapture Component
+ * 
+ * This component provides a UI to start a camera, capture an image, and stop the camera.
+ * It displays the captured image and alerts the user if there are any errors accessing the camera.
+ * 
+ * @param {Function} onCapture - Callback function that receives the captured image as a data URL.
+ */
 const CameraCapture = ({ onCapture }) => {
-	const [error, setError] = useState(null);
-	const [stream, setStream] = useState(null);
-	const [imageSrc, setImageSrc] = useState(null); // New state to keep captured image
-	const videoRef = useRef(null);
+	const [error, setError] = useState(null);              // State to manage any camera-related errors
+	const [stream, setStream] = useState(null);            // State to hold the camera stream
+	const [imageSrc, setImageSrc] = useState(null);        // State to keep the captured image data URL
+	const videoRef = useRef(null);                         // Reference to the video element for camera preview
 
+	/**
+	 * Asynchronously starts the camera and sets the stream to the video element.
+	 */
 	const startCamera = async () => {
 		try {
 			const constraints = {
 				video: {
-					facingMode: 'environment'
+					facingMode: 'environment'  // Prefer rear camera on devices
 				}
 			};
 			const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -22,6 +33,9 @@ const CameraCapture = ({ onCapture }) => {
 		}
 	};
 
+	/**
+	 * Stops the active camera stream.
+	 */
 	const stopCamera = () => {
 		if (stream) {
 			stream.getTracks().forEach(track => track.stop());
@@ -29,7 +43,10 @@ const CameraCapture = ({ onCapture }) => {
 		}
 	};
 
-
+	/**
+	 * Captures the current frame from the camera stream, converts it to a data URL, and
+	 * invokes the onCapture callback.
+	 */
 	const captureImage = useCallback(() => {
 		try {
 			const canvas = document.createElement("canvas");
@@ -38,7 +55,7 @@ const CameraCapture = ({ onCapture }) => {
 			canvas.getContext('2d').drawImage(videoRef.current, 0, 0);
 			const imgSrc = canvas.toDataURL("image/png");
 
-			setImageSrc(imgSrc);  // Store captured image source
+			setImageSrc(imgSrc);  // Store captured image data URL
 			onCapture(imgSrc);
 
 			// Ensure to stop the camera after capture
@@ -49,6 +66,10 @@ const CameraCapture = ({ onCapture }) => {
 		}
 	}, [onCapture, stream]);
 
+	/**
+	 * Effect hook to manage the camera stream lifecycle.
+	 * Assigns the stream to the video element when available and cleans up the stream on unmount.
+	 */
 	useEffect(() => {
 		videoRef.current.srcObject = stream;
 

@@ -4,8 +4,20 @@ import Signature from './Signature';
 import axios from 'axios';
 import '../css/ItemFulfillment.css';
 
+/**
+ * ItemFulfillment Component
+ * 
+ * This component handles the image capture and signature collection processes related to 
+ * an item fulfillment activity, and then uploads the images to a server.
+ * 
+ * @param {Object} details - The details of the item fulfillment.
+ * @param {Function} onRefresh - Callback to refresh the parent component or UI.
+ * @param {Object} data - Additional data that may be used for server operations.
+ */
 const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 	const sigCanvas = useRef({});
+
+	// State variables
 	const [itemFulfillmentId, setItemFulfillmentId] = useState(null);
 	const [itemFulfillmentRecordId, setItemFulfillmentRecordId] = useState(null);
 	const [capturedImage, setCapturedImage] = useState(null);
@@ -16,8 +28,16 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [showDetails, setShowDetails] = useState(true);
 	const [updateItemFulfillmentResponse, setUpdateItemFulfillmentResponse] = useState(null);
+
+	// Server URI from environment variables
 	const expressServerRootUri = process.env.REACT_APP_EXPRESS_SERVER_ROOT_URI;
 
+	/**
+	 * Convert a data URL to a Blob object.
+	 * 
+	 * @param {string} dataURL - The data URL to convert.
+	 * @returns {Blob} The resulting Blob object.
+	 */
 	const dataURLToBlob = (dataURL) => {
 		const byteString = atob(dataURL.split(',')[1]);
 		const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
@@ -29,6 +49,9 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 		return new Blob([ab], { type: mimeString });
 	};
 
+	/**
+	 * Handle the process of uploading images to the server.
+	 */
 	const handleUpload = async () => {
 		if (!signatureImage) {
 			setErrorMessage('Please provide a signature before submitting.');
@@ -66,19 +89,36 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 		}
 	};
 
+	/**
+	 * Callback to handle accepting a signature.
+	 * 
+	 * @param {string} imgSrc - The source URL of the accepted signature image.
+	 */
 	const handleSignatureAccept = (imgSrc) => {
 		setSignatureImage(imgSrc);
 	};
 
+	/**
+	 * Callback to handle image capture.
+	 * 
+	 * @param {string} imageSrc - The source URL of the captured image.
+	 */
 	const handleImageCapture = (imageSrc) => {
 		setCapturedImage(imageSrc);
 	};
 
+	/**
+	 * Handle hiding details and refreshing the parent component/UI.
+	 */
 	const handleDetailsAndRefresh = () => {
 		setShowDetails(false);
 		onRefresh && onRefresh();
 	};
 
+	/**
+	 * Update the item fulfillment record on the server with the captured image 
+	 * and signature URLs.
+	 */
 	const updateItemFulfillment = async () => {
 		try {
 			// Filter the URLs based on naming convention
@@ -104,6 +144,7 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 		}
 	};
 
+	// These fields and labels are used for displaying item details in a table format.
 	const fieldsToDisplay = ['custbody1', 'tranId', 'tranDate', 'orderType', 'shipAddress'];
 	const fieldLabels = {
 		custbody1: 'Seller',
@@ -112,10 +153,13 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 		orderType: 'Order Type',
 		shipAddress: 'Shipping Address'
 	};
+
+	/**
+	 * Side effect to initialize itemFulfillmentId and itemFulfillmentRecordId 
+	 * based on the details prop when the component mounts.
+	 */
 	useEffect(() => {
-		// Set itemFulfillmentId when the component mounts
 		setItemFulfillmentId(details.tranId);
-		// Set itemFulfillment record id when the component mounts
 		setItemFulfillmentRecordId(details.id);
 	}, [details.id, details.tranId]);
 
