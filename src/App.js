@@ -97,7 +97,10 @@ function App() {
 								selectedItem={selectedItemId}
 								onRefresh={handleRefreshItems}
 							/>
-							<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} maxPages={maxPages} />
+							{/* Render Pagination only if there are items */}
+							{itemFulfillmentData && itemFulfillmentData.length > 0 && (
+								<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} maxPages={maxPages} />
+							)}
 							{selectedItemDetails && <ItemFulfillment key={selectedItemId} details={selectedItemDetails} onRefresh={handleRefreshItems} data={tokenData} />}
 						</div>
 					) : <button className="login-button" onClick={handleLogin}>Login with NETSUITE - COMPETITIVE CHOICE</button>
