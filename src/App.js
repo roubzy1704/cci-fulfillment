@@ -98,7 +98,7 @@ function App() {
 								onRefresh={handleRefreshItems}
 							/>
 							<Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} maxPages={maxPages} />
-							{selectedItemDetails && <ItemFulfillment key={selectedItemId} details={selectedItemDetails} />}
+							{selectedItemDetails && <ItemFulfillment key={selectedItemId} details={selectedItemDetails} onRefresh={handleRefreshItems} data={tokenData} />}
 						</div>
 					) : <button className="login-button" onClick={handleLogin}>Login with NETSUITE - COMPETITIVE CHOICE</button>
 				}
