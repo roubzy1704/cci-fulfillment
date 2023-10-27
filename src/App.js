@@ -5,7 +5,6 @@ import ItemFulfillmentTable from './components/ItemFulfillmentTable';
 import ItemFulfillment from './components/ItemFulfillment';
 import Pagination from './components/Pagination';
 import './css/App.css';
-import './css/Sidebar.css';
 
 const apiCall = async (endpoint, params = {}) => {
 	try {
@@ -16,7 +15,7 @@ const apiCall = async (endpoint, params = {}) => {
 	}
 };
 
-function App() {
+const App = () => {
 	const [tokenData, setTokenData] = useState(null);
 	const [itemFulfillmentData, setItemFulfillmentData] = useState(null);
 	const [selectedItemDetails, setSelectedItemDetails] = useState(null);
