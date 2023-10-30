@@ -93,7 +93,8 @@ const App = () => {
 
 	// Use effect hook to extract data from the URL (if present) when the component mounts.
 	useEffect(() => {
-		if (window.location.pathname === '/dashboard') {
+		const path= window.location.pathname;
+		if (path.includes('/dashboard')) {
 			// Extract data from URL if present
 			const urlParams = new URLSearchParams(window.location.search);
 			const dataFromRedirect = urlParams.get('data');
