@@ -9,5 +9,5 @@ module.exports = {
     NODE_ENV : process.env.NODE_ENV,
     HOST : process.env.HOST || 'localhost',
     PORT : process.env.PORT || 3000,
-    PATH : process.env.PATH || ''
+    APP_PATH : process.env.APP_PATH || ''
 }
