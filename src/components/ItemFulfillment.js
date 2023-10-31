@@ -27,6 +27,7 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 	const [uploadedUrls, setUploadedUrls] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [showDetails, setShowDetails] = useState(true);
+	const [isProcessItemButtonDisabled, setIsProcessItemButtonDisabled] = useState(false);
 	const [updateItemFulfillmentResponse, setUpdateItemFulfillmentResponse] = useState(null);
 
 	// Server URI from environment variables
@@ -120,6 +121,7 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 	 * and signature URLs.
 	 */
 	const updateItemFulfillment = async () => {
+		setIsProcessItemButtonDisabled(true);
 		try {
 			// Filter the URLs based on naming convention
 			const capturedImageUrl = uploadedUrls.find(url => url.includes('picture'));
@@ -137,9 +139,11 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 			if (response.status === 200) {
 				setUpdateItemFulfillmentResponse(response.data.message || 'Successfully updated.');
 			} else {
+				setIsProcessItemButtonDisabled(true);
 				setUpdateItemFulfillmentResponse('Error updating ItemFulfillment.');
 			}
 		} catch (error) {
+			setIsProcessItemButtonDisabled(true);
 			setUpdateItemFulfillmentResponse(`Error: ${error.message}`);
 		}
 	};
@@ -219,7 +223,7 @@ const ItemFulfillment = ({ details = {}, onRefresh, data }) => {
 														</ul>
 													</div>
 													<div className="button-container">
-														<button onClick={updateItemFulfillment}>Process Item Fulfillment.</button>
+														<button onClick={updateItemFulfillment} disabled={isProcessItemButtonDisabled}>Process Item Fulfillment.</button>
 														{updateItemFulfillmentResponse && (
 															<>
 																<p><strong>{updateItemFulfillmentResponse}</strong></p>
